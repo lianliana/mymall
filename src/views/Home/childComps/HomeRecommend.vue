@@ -32,7 +32,7 @@ export default {
     border-bottom: #eee solid 10px;
 }
 .recommend-item{
-    padding: 18px 0 36px 0;
+    padding: 18px 0 15px 0;
     display: block;
     flex: 1;
 }
