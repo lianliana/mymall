@@ -6,9 +6,10 @@
        <div>购物街</div>
       </template>
     </NavBar>
+    <TabControl :titles="['流行','新款','精选']" @TabControlClick="TabControlClick" ref="TabControl" class="TabControl" v-show="TabControlShow"></TabControl>
     </div>  
     <Scroll ref='scroll' :probeType="3" class="wrapper" @scrollon="contentscroll" :pull-up-load="true" @pullup="pullingup">
-      <HomeSwiper :banners="banners.list"></HomeSwiper>
+      <HomeSwiper :banners="banners.list" @homeSwiperLoad="homeSwiperLoad"></HomeSwiper>
       <home-recommend :recommends="recommends.list"></home-recommend>
       <feature-view></feature-view>
       <TabControl :titles="['流行','新款','精选']" @TabControlClick="TabControlClick" ref="TabControl"></TabControl>
@@ -58,7 +59,8 @@ export default {
       },
       currentType:'pop',
       isbacktop:false,
-      tabOffserTop:0
+      tabOffserTop:0,
+      TabControlShow:false
     }
   },
   components:{
@@ -82,10 +84,12 @@ export default {
     const myrefresh=this.debounce(this.$refs.scroll.scrollRefresh,500)
     emitter.on('itemImageLoad', () => {
       myrefresh()
-    }),
-    console.log(this.$refs.TabControl.$el.offsetTop);
+    })
   },
   methods:{
+    homeSwiperLoad(){
+     this.tabOffserTop=this.$refs.TabControl.$el.offsetTop
+    },
     debounce(func,delay){
       let timer=null
       return function(...args){
@@ -127,6 +131,12 @@ export default {
     },
     contentscroll(postion){
       this.isbacktop=-postion.y>1000
+      if(-postion.y>(this.tabOffserTop-42)){
+        this.TabControlShow=true
+      }
+      else{
+        this.TabControlShow=false
+      }
     },
     pullingup(){
       console.log("下拉加载更多");
@@ -147,14 +157,17 @@ height: 100vh;
 .navbar-wrapper{
   position: absolute;
   z-index: 999;
+  width: 100%;
 }
 .home-nav{
   background-color: var(--color-tint);
   color:#fff;
   font-size: 19px;
-  width: 375px;
+  
 }
-
+.TabControl{
+  background-color: white;
+}
 
 
 

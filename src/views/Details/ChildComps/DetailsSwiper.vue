@@ -1,10 +1,10 @@
 <template>
-    <div class="HomeSwiper">
+    <div class="DetailsSwiper">
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white" lazy-render >      
-        <van-swipe-item v-for="(item,index) in banners" :key="index" >
-            <a :href="item.link">
-                <img :src="item.image" @load="homeSwiperLoad">
-            </a>
+        <van-swipe-item v-for="(item,index) in topImages" :key="index" >
+                <div class="imgWrapper">
+                    <img :src="item" >
+                </div>
         </van-swipe-item>
     </van-swipe>
     </div>
@@ -12,11 +12,10 @@
 
 <script>
 import { Swipe, SwipeItem } from 'vant'
-export default {
-    
-    name:"HomeSwiper",
+export default {  
+    name:"DetailsSwiper",
     props:{
-        banners:{
+        topImages:{
             type:Array,
             default(){
                 return []
@@ -25,7 +24,7 @@ export default {
     },
     data(){
         return {
-            isLoad:false
+            
         }
     },
     components:{
@@ -33,13 +32,7 @@ export default {
        'van-swipe-item': SwipeItem
     },
     methods:{
-        homeSwiperLoad(){
-            if(!this.isLoad)
-            {
-                this.$emit('homeSwiperLoad')
-                this.isLoad=true
-            }
-        }
+       
     }
 }
 </script>
@@ -48,19 +41,16 @@ export default {
 .van-swipe {
     color: #fff;
     font-size: 20px;
-    line-height: 150px;
-    text-align: center;
     background-color: white;
   }
 .van-swipe__track{
-    height: 195px;
     display: flex;
 }
 .van-swipe-item{
      width: 100%;
-     height: 195px;
 }
-img{
-    width: 100%;
+.DetailsSwiper{
+    height: 350px;
+    overflow: hidden;
 }
 </style>

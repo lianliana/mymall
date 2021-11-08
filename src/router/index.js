@@ -3,6 +3,7 @@ import Home from '../views/Home/home.vue'
 import category from '../views/category/category.vue'
 import cart from '../views/cart/cart.vue'
 import Profile from '../views/profile/profile.vue'
+import Details from '../views/Details/Details.vue'
 const routes =[
     {
         path:'',
@@ -24,6 +25,10 @@ const routes =[
         path:'/category',
         component:category
     },
+    {
+        path:'/details/:iid',
+        component:Details
+    }
 ]
 
 const router = createRouter({
